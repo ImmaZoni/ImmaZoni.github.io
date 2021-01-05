@@ -1,0 +1,473 @@
+/* Justin Hill Portfolio Website */
+
+* { /* Overall Page Rule's*/
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+  font-family: 'Roboto', sans-serif;
+}
+
+html {
+  
+}
+
+body {
+color: #212529;
+background-color: #f8f9fa;
+}
+h1{ /*Header 1 Rule's*/
+  color: #F8F9FA;
+  font-size:72px;
+  text-align:center;
+ }
+
+h2{ /*Header 2 Rule's*/
+  color: #E9ECEF;
+  font-size:48px;
+  text-align:center;
+ }
+
+p {
+  color: #212529;
+}
+
+.nav-icon {
+  display: inline;
+  float: right;
+}
+
+.nav-icon a {
+  padding: 5px 0;
+  transition: all 0.5s ease;
+  color: #F8F9FA;
+  font-size: 20px;
+  display: inline-block;
+  padding: 5px;
+}
+
+.nav-icon a:hover {
+  color: #495057;
+}
+.nav-text {
+  text-align: left;
+  display: inline;
+}
+
+.nav-text a {
+  padding: 5px 0;
+  transition: all 0.5s ease;
+  color: #F8F9FA;
+  font-size: 20px;
+  display: inline-block;
+  text-decoration: none;
+  padding: 5px;
+}
+
+.nav-text a:hover {
+  color: #495057;
+}
+
+.custom-shape-divider-bottom-1609281223 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-bottom-1609281223 svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 119px;
+}
+
+.custom-shape-divider-bottom-1609281223 .shape-fill {
+  fill: #F8F9FA;
+}
+
+#particles-js {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #212F45;
+  background: linear-gradient(206deg, #212f45, #272640, #312244, #3e1f47, #4d194d, #1b3a4b, #1b3a4b, #1b3a4b, #144552, #0b525b, #065a60, #006466);
+  background-size: 1000% 1000% !important;
+  -webkit-animation: changeColors 30s ease infinite;
+  -moz-animation: changeColors 30s ease infinite;
+  -o-animation: changeColors 30s ease infinite;
+  animation: changeColors 30s ease infinite;
+  display: block;
+}
+@keyframes changeColors {
+  0% {
+      background-position: 0 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0 50%;
+  }
+}
+@-webkit-keyframes changeColors {
+  0% {
+      background-position: 0 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0 50%;
+  }
+}
+
+@keyframes changeLetter {
+  1.36986301369863% {content: "";}
+  2.73972602739726% {content: "D";}
+  4.10958904109589% {content: "De";}
+  5.479452054794521% {content: "Dev";}
+  6.849315068493151% {content: "Deve";}
+  8.219178082191781% {content: "Devel";}
+  9.589041095890411% {content: "Develo";}
+  10.95890410958904% {content: "Develop";}
+  12.32876712328767% {content: "Develope";}
+  13.6986301369863% {content: "Developer";}
+  15.06849315068493% {content: "Develope";}
+  16.43835616438356% {content: "Develop";}
+  17.80821917808219% {content: "Develo";}
+  19.17808219178082% {content: "Devel";}
+  20.54794520547945% {content: "Deve";}
+  21.91780821917808% {content: "Dev";}
+  23.28767123287671% {content: "De";}
+  24.65753424657534% {content: "D";}
+  26.02739726027397% {content: "De";}
+  27.3972602739726% {content: "Des";}
+  28.76712328767123% {content: "Desi";}
+  30.13698630136986% {content: "Desig";}
+  31.50684931506849% {content: "Design";}
+  32.87671232876712% {content: "Designe";}
+  34.24657534246575% {content: "Designer";}
+  35.61643835616438% {content: "Designe";}
+  36.98630136986301% {content: "Design";}
+  38.35616438356164% {content: "Desig";}
+  39.72602739726027% {content: "Desi";}
+  41.0958904109589% {content: "Des";}
+  42.46575342465753% {content: "De";}
+  43.83561643835616% {content: "D";}
+  45.20547945205479% {content: "";}
+  46.57534246575342% {content: "H";}
+  47.94520547945205% {content: "Ha";}
+  49.31506849315068% {content: "Har";}
+  50.68493150684932% {content: "Hard";}
+  52.05479452054795% {content: "Hardw";}
+  53.42465753424658% {content: "Hardwa";}
+  54.79452054794521% {content: "Hardwar";}
+  56.16438356164384% {content: "Hardware";}
+  57.53424657534247% {content: "Hardware ";}
+  58.9041095890411% {content: "Hardware G";}
+  60.27397260273973% {content: "Hardware Ge";}
+  61.64383561643836% {content: "Hardware Gee";}
+  63.01369863013699% {content: "Hardware Geek";}
+  64.38356164383562% {content: "Hardware Gee";}
+  65.75342465753425% {content: "Hardware Ge";}
+  67.12328767123288% {content: "Hardware G";}
+  68.49315068493151% {content: "Hardware ";}
+  69.86301369863014% {content: "Hardware";}
+  71.23287671232877% {content: "Hardwar";}
+  72.6027397260274% {content: "Hardwa";}
+  73.97260273972603% {content: "Hardw";}
+  75.34246575342466% {content: "Hard";}
+  76.71232876712329% {content: "Har";}
+  78.08219178082192% {content: "Ha";}
+  79.45205479452055% {content: "H";}
+  80.82191780821918% {content: "";}
+  82.19178082191781% {content: "P";}
+  83.56164383561644% {content: "Ph";}
+  84.93150684931507% {content: "Phi";}
+  86.3013698630137% {content: "Phil";}
+  87.67123287671233% {content: "Phila";}
+  89.04109589041096% {content: "Philan";}
+  90.41095890410959% {content: "Philant";}
+  91.78082191780822% {content: "Philanth";}
+  93.15068493150685% {content: "Philanthr";}
+  94.52054794520548% {content: "Philanthro";}
+  95.89041095890411% {content: "Philanthrop";}
+  97.26027397260274% {content: "Philanthropi";}
+  98.63013698630137% {content: "Philanthropis";}
+  100.0000000000000% {content: "Philanthropist";}
+}
+@keyframes cursor {
+  0% {content: "";}
+  50% {content: "|";}
+  100% {content: "";}
+}
+.letter-changer::before {
+  animation: changeLetter 10s linear 1s 1 normal forwards;
+  content: "";
+}
+.letter-changer::after {
+  animation: cursor 0.6s linear 2.2s 1 normal forwards, cursor 0.6s linear 4s 3 normal forwards;
+  content: "|";
+}
+.accessibility {
+  width: 0; 
+  display: inline-block; 
+  overflow: hidden; 
+  white-space:nowrap;
+}
+
+
+/*
+ * Remove text-shadow in selection highlight:
+ * https://twitter.com/miketaylr/status/12228805301
+ *
+ * Vendor-prefixed and regular ::selection selectors cannot be combined:
+ * https://stackoverflow.com/a/16982510/7133471
+ *
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+/*
+ * Remove the gap between audio, canvas, iframes,
+ * images, videos and the bottom of their containers:
+ * https://github.com/h5bp/html5-boilerplate/issues/440
+ */
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+  resize: vertical;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Hide visually and from screen readers
+ */
+
+.hidden,
+[hidden] {
+  display: none !important;
+}
+
+/*
+ * Hide only visually, but have it available for screen readers:
+ * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ *
+ * 1. For long content, line feeds are not interpreted as spaces and small width
+ *    causes content to wrap 1 word per line:
+ *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
+ */
+
+.sr-only {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  /* 1 */
+}
+
+/*
+ * Extends the .sr-only class to allow the element
+ * to be focusable when navigated to via the keyboard:
+ * https://www.drupal.org/node/897638
+ */
+
+.sr-only.focusable:active,
+.sr-only.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  white-space: inherit;
+  width: auto;
+}
+
+/*
+ * Hide visually and from screen readers, but maintain layout
+ */
+
+.invisible {
+  visibility: hidden;
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.clearfix::before,
+.clearfix::after {
+  content: " ";
+  display: table;
+}
+
+.clearfix::after {
+  clear: both;
+}
+
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+  /* Style adjustments for viewports that meet the condition */
+}
+
+@media print,
+  (-webkit-min-device-pixel-ratio: 1.25),
+  (min-resolution: 1.25dppx),
+  (min-resolution: 120dpi) {
+  /* Style adjustments for high resolution devices */
+}
+
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid the additional HTTP request:
+   https://www.phpied.com/delay-loading-your-print-css/
+   ========================================================================== */
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: #fff !important;
+    color: #000 !important;
+    /* Black prints faster */
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]::after {
+    content: " (" attr(title) ")";
+  }
+
+  /*
+   * Don't show links that are fragment identifiers,
+   * or use the `javascript:` pseudo protocol
+   */
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+
+  pre {
+    white-space: pre-wrap !important;
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  /*
+   * Printing Tables:
+   * https://web.archive.org/web/20180815150934/http://css-discuss.incutio.com/wiki/Printing_Tables
+   */
+  thead {
+    display: table-header-group;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+

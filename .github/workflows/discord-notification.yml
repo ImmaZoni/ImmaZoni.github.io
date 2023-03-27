@@ -1,5 +1,4 @@
 on:
-  workflow_dispatch:
   release:
     types: [published]
 
@@ -11,9 +10,26 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
+        if: github.event.release.prerelease == true
         with:
           args: |
             A new pre-release version of ${{ github.repository }} has been created!
+
+            **Release Description:**
+            ```
+            ${{ github.event.release.body }}
+            ```
+
+            Check it out at: ${{ github.event.release.html_url }}
+
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        if: github.event.release.prerelease == false
+        with:
+          args: |
+            A new version of ${{ github.repository }} has been released!
 
             **Release Description:**
             ```

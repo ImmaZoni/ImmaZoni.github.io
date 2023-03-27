@@ -1,0 +1,22 @@
+on:
+  release:
+    types: [prereleased]
+
+jobs:
+  send_discord_message:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: |
+            A new pre-release version of ${{ github.repository }} has been created!
+
+            **Release Description:**
+            ```
+            ${{ github.event.release.body }}
+            ```
+
+            Check it out at: ${{ github.event.release.html_url }}

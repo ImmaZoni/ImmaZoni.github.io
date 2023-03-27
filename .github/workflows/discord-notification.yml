@@ -1,6 +1,6 @@
 on:
   release:
-    types: [published]
+    types: [published, released]
 
 jobs:
   send_discord_message:
@@ -9,8 +9,8 @@ jobs:
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        uses: Ilshidur/action-discord@master
         if: github.event.release.prerelease == true
+        uses: Ilshidur/action-discord@master
         with:
           args: |
             A new pre-release version of ${{ github.repository }} has been created!
@@ -25,8 +25,8 @@ jobs:
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        if: github.event.release.prerelease == false && github.event_name == 'released'
         uses: Ilshidur/action-discord@master
-        if: github.event.release.prerelease == false
         with:
           args: |
             A new version of ${{ github.repository }} has been released!

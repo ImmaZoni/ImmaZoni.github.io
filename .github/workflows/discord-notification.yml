@@ -2,7 +2,7 @@ name: Send Release Messages
 
 on:
   release:
-    types: [published, prereleased]
+    types: [published]
 
 jobs:
   send_message:

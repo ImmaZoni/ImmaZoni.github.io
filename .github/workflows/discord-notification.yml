@@ -1,24 +1,62 @@
 name: Send Release Messages
 
 on:
-  release:
-    types: [published]
+  workflow_run:
+    workflows: ["Build and Release"]
+    types:
+      - completed
+  workflow_dispatch:
+    inputs:
+      branch_name:
+        description: 'Please run this workflow from the branch you updated'
+        required: true
+        type: string
+      notify_community:
+        description: 'I understand that running this workflow will notify the community of my actions'
+        required: true
+        type: boolean
 
 jobs:
   send_message:
     runs-on: ubuntu-latest
     steps:
+      - name: Fetch Latest Release
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        id: get_latest_release
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const { data: branch } = await octokit.repos.getBranch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              branch: ${{ github.event.inputs.branch_name || github.head_ref }}
+            })
+            const { data: releases } = await octokit.repos.listReleases({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              per_page: 1,
+              sha: branch.commit.sha
+            })
+            console.log(`Latest Release Tag Name: ${releases[0].tag_name}`)
+            console.log(`Latest Release Body: ${releases[0].body}`)
+            console.log(`Latest Release URL: ${releases[0].html_url}`)
+            return {
+              tagName: releases[0].tag_name,
+              body: releases[0].body,
+              htmlUrl: releases[0].html_url
+            }
+          secrets: |
+            GITHUB_TOKEN
+
       - name: Send Discord Message
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
           args: |
-            A new ${{ github.event.release.prerelease == true && 'pre-' || '' }}release version of ${{ github.repository }} has been created!
-
+            A new release version of ${{ github.repository }} has been created!
             **Release Description:**
             ```
-            ${{ github.event.release.body }}
+            ${{ steps.get_latest_release.outputs.body }}
             ```
-
-            Check it out at: ${{ github.event.release.html_url }}
+            Check it out at: ${{ steps.get_latest_release.outputs.htmlUrl }}

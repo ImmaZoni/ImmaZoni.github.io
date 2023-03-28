@@ -24,9 +24,6 @@ jobs:
             ```
 
             Check it out at: ${{ github.event.release.html_url }}
-  new_pre_release:
-    runs-on: ubuntu-latest
-    steps:
       - name: Pre-release Created Message
         if: github.event.release.prerelease == true && !contains(github.event.release.tag_name, 'latest')
         env:
@@ -42,9 +39,6 @@ jobs:
             ```
 
             Check it out at: ${{ github.event.release.html_url }}
-  new_release:
-    runs-on: ubuntu-latest
-    steps:
       - name: New Release Created Message
         if: github.event.action == 'released' && github.event.release.prerelease == false
         env:

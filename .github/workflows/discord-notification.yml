@@ -1,39 +1,47 @@
+name: Discord Notification on Release
+
 on:
   release:
-    types: [created, edited, published]
+    types: [released]
 
 jobs:
   send_discord_message:
     runs-on: ubuntu-latest
     steps:
-      - name: Discord notification
+      - name: Check if pre-release is labeled as a release
+        run: |
+          if [ "${{ github.event.release.prerelease }}" = true ] && [ "${{ github.event.release.draft }}" = false ]; then
+            echo "This pre-release was just labeled as a release!"
+            export IS_PRERELEASE=true
+          else
+            echo "This is not a pre-release labeled as a release."
+            export IS_PRERELEASE=false
+          fi
+      
+      - name: Send Discord notification
+        if: ${{ env.IS_PRERELEASE }} == true
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        if: github.event.release.prerelease == true
         uses: Ilshidur/action-discord@master
         with:
           args: |
             A new pre-release version of ${{ github.repository }} has been created!
-
             **Release Description:**
             ```
             ${{ github.event.release.body }}
             ```
-
             Check it out at: ${{ github.event.release.html_url }}
-
-      - name: Discord notification
+      
+      - name: Send Discord notification
+        if: ${{ env.IS_PRERELEASE }} == false
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        if: github.event.release.prerelease == false
         uses: Ilshidur/action-discord@master
         with:
           args: |
             A new version of ${{ github.repository }} has been released!
-
             **Release Description:**
             ```
             ${{ github.event.release.body }}
             ```
-
             Check it out at: ${{ github.event.release.html_url }}

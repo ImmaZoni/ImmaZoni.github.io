@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Pre-release Created Message
-        if: github.event.action == 'released' && github.event.release.prerelease == true && !contains(github.event.release.tag_name, 'latest')
+        if: github.event.release.prerelease == true && !contains(github.event.release.tag_name, 'latest')
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master

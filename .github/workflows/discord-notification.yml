@@ -1,47 +1,44 @@
 name: Discord Notification on Release
 
 on:
+  workflow_dispatch:
   release:
-    types: [released]
+    types: [published]
 
 jobs:
-  send_discord_message:
+  update_pre_release:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if pre-release is labeled as a release
-        run: |
-          if [ "${{ github.event.release.prerelease }}" = true ] && [ "${{ github.event.release.draft }}" = false ]; then
-            echo "This pre-release was just labeled as a release!"
-            export IS_PRERELEASE=true
-          else
-            echo "This is not a pre-release labeled as a release."
-            export IS_PRERELEASE=false
-          fi
-      
-      - name: Send Discord notification
-        if: ${{ env.IS_PRERELEASE }} == true
+      - name: Pre-Release Update Message
+        if: github.event.action == 'released' && github.event.release.prerelease == true && contains(github.event.release.tag_name, 'latest')
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
           args: |
             A new pre-release version of ${{ github.repository }} has been created!
+
             **Release Description:**
             ```
             ${{ github.event.release.body }}
             ```
+
             Check it out at: ${{ github.event.release.html_url }}
-      
-      - name: Send Discord notification
-        if: ${{ env.IS_PRERELEASE }} == false
+  send_discord_message:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pre-release Message
+        if: github.event.action == 'released' && github.event.release.release == true
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
           args: |
-            A new version of ${{ github.repository }} has been released!
+            A new pre-release version of ${{ github.repository }} has been created!
+
             **Release Description:**
             ```
             ${{ github.event.release.body }}
             ```
+
             Check it out at: ${{ github.event.release.html_url }}

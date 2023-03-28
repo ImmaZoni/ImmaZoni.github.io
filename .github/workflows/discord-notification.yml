@@ -9,21 +9,6 @@ jobs:
   update_pre_release:
     runs-on: ubuntu-latest
     steps:
-      - name: Pre-Release Update Message
-        if: github.event.action == 'released' && github.event.release.prerelease == true && contains(github.event.release.tag_name, 'latest')
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        uses: Ilshidur/action-discord@master
-        with:
-          args: |
-            Pre-release version of ${{ github.repository }} has been updated to the Latest release!
-
-            **Release Description:**
-            ```
-            ${{ github.event.release.body }}
-            ```
-
-            Check it out at: ${{ github.event.release.html_url }}
       - name: Pre-release Created Message
         if: github.event.release.prerelease == true && !contains(github.event.release.tag_name, 'latest')
         env:
@@ -47,6 +32,21 @@ jobs:
         with:
           args: |
             A new Release version of ${{ github.repository }} has been created!
+
+            **Release Description:**
+            ```
+            ${{ github.event.release.body }}
+            ```
+
+            Check it out at: ${{ github.event.release.html_url }}
+      - name: Pre-Release Update Message
+        if: github.event.action == 'released' && github.event.release.prerelease == true && contains(github.event.release.tag_name, 'latest')
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: |
+            Pre-release version of ${{ github.repository }} has been updated to the Latest release!
 
             **Release Description:**
             ```

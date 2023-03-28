@@ -6,7 +6,7 @@ on:
     types: [published]
 
 jobs:
-  update_pre_release:
+  pre_release:
     runs-on: ubuntu-latest
     steps:
       - name: Pre-release Created Message
@@ -24,6 +24,9 @@ jobs:
             ```
 
             Check it out at: ${{ github.event.release.html_url }}
+  new_release:
+    runs-on: ubuntu-latest
+    steps:
       - name: New Release Created Message
         if: github.event.release.prerelease == false
         env:
@@ -39,6 +42,9 @@ jobs:
             ```
 
             Check it out at: ${{ github.event.release.html_url }}
+  pre-release_update:
+    runs-on: ubuntu-latest
+    steps:
       - name: Pre-Release Update Message
         if: github.event.action == 'released' && github.event.release.prerelease == true
         env:

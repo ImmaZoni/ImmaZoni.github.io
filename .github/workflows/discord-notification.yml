@@ -1,16 +1,15 @@
 name: Discord Notification on Release
 
 on:
-  workflow_dispatch:
   release:
-    types: [published]
+    types: [created, edited, deleted]
 
 jobs:
-  pre_release:
+  pre_release_created:
+    if: github.event.release.prerelease == true && github.event.action == 'created'
     runs-on: ubuntu-latest
     steps:
       - name: Pre-release Created Message
-        if: github.event.release.prerelease == true
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
@@ -24,11 +23,12 @@ jobs:
             ```
 
             Check it out at: ${{ github.event.release.html_url }}
-  new_release:
+
+  new_release_created:
+    if: github.event.release.prerelease == false && github.event.action == 'created'
     runs-on: ubuntu-latest
     steps:
       - name: New Release Created Message
-        if: github.event.release.prerelease == false
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
@@ -42,17 +42,18 @@ jobs:
             ```
 
             Check it out at: ${{ github.event.release.html_url }}
-  pre-release_update:
+
+  pre_release_changed:
+    if: github.event.release.prerelease == true && github.event.action == 'edited' && contains(github.event.changes, 'prerelease')
     runs-on: ubuntu-latest
     steps:
-      - name: Pre-Release Update Message
-        if: github.event.action == 'released' && github.event.release.prerelease == true
+      - name: Pre-Release Changed Message
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
           args: |
-            Pre-release version of ${{ github.repository }} has been updated to the Latest release!
+            Pre-release version of ${{ github.repository }} has been changed to a Release!
 
             **Release Description:**
             ```
@@ -60,3 +61,20 @@ jobs:
             ```
 
             Check it out at: ${{ github.event.release.html_url }}
+
+  release_deleted:
+    if: github.event.action == 'deleted'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release Deleted Message
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: |
+            A Release version of ${{ github.repository }} has been deleted!
+
+            **Release Description:**
+            ```
+            ${{ github.event.release.body }}
+            ```

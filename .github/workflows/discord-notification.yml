@@ -40,7 +40,9 @@ jobs:
           commitSha: ${{ github.event.workflow_run.head_sha }}
           prerelease: false
       - name: Send Discord Message
-        if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run' && steps.release_info.outputs.tag_name == github.event.workflow_run.head_commit.tag }}
+      # write if to check if the workflow_run tag matches the release_info.output tag
+
+        if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run' && github.ref == github.event.workflow_run.ref && steps.release_info.outputs.prerelease == false }}
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master

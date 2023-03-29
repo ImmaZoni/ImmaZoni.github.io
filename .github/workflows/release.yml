@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Echo
-        run: Echo "Release Ran!"
+        run: echo "Release Ran!"

@@ -2,7 +2,7 @@ name: Send Release Messages
 
 on:
   workflow_run:
-    workflows: ["Build and Release"]
+    workflows: ["release"]
     types:
       - completed
   workflow_dispatch:

@@ -20,33 +20,26 @@ jobs:
   send_message:
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch Latest Release
+      - name: Get release by Tag for manual run
         if: ${{ github.event_name == 'workflow_dispatch' }}
-        id: get_latest_release
-        uses: actions/github-script@v4
+        id: release_info
+      - uses: cardinalby/git-get-release-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          script: |
-            const { data: branch } = await octokit.repos.getBranch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              branch: ${{ github.event.inputs.branch_name || github.head_ref }}
-            })
-            const { data: releases } = await octokit.repos.listReleases({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              per_page: 1,
-              sha: branch.commit.sha
-            })
-            console.log(`Latest Release Tag Name: ${releases[0].tag_name}`)
-            console.log(`Latest Release Body: ${releases[0].body}`)
-            console.log(`Latest Release URL: ${releases[0].html_url}`)
-            return {
-              tagName: releases[0].tag_name,
-              body: releases[0].body,
-              htmlUrl: releases[0].html_url
-            }
-          secrets: |
-            GITHUB_TOKEN
+          commitSha: ${{ github.sha }}
+          prerelease: false
+
+      - name: Get release by Tag for build and release
+        if: ${{ github.event_name == 'workflow_run' }}
+        id: release_info
+      - uses: cardinalby/git-get-release-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          commitSha: ${{ github.event.workflow_run.head_sha }}
+          prerelease: false
+
 
       - name: Send Discord Message
         env:
@@ -54,9 +47,12 @@ jobs:
         uses: Ilshidur/action-discord@master
         with:
           args: |
-            A new release version of ${{ github.repository }} has been created!
+            ${{ steps.release_info.tag_name }} of ${{ github.repository }} has been released!
             **Release Description:**
             ```
-            ${{ steps.get_latest_release.outputs.body }}
+            ${{ steps.release_info.body }}
             ```
-            Check it out at: ${{ steps.get_latest_release.outputs.htmlUrl }}
+            Read more at: ${{ steps.release_info.html_url }}
+
+            You can also update by visiting our docs at:
+            https://docs.subspace.network/docs/protocol/cli

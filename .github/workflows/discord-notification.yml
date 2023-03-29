@@ -44,12 +44,12 @@ jobs:
         uses: Ilshidur/action-discord@master
         with:
           args: |
-            ${{ steps.release_info.tag_name || steps.manual_release_info .tag_name }} of ${{ github.repository }} has been released!
+            ${{ steps.release_info.outputs.tag_name || steps.manual_release_info.outputs.tag_name }} of ${{ github.repository }} has been released!
             **Release Description:**
             ```
-            ${{ steps.release_info.body || steps.manual_release_info.body }}
+            ${{ steps.release_info.outputs.body || steps.manual_release_info.outputs.body }}
             ```
-            Read more at: ${{ steps.release_info.html_url || steps.manual_release_info.html_url }}
+            Read more at: ${{ steps.release_info.outputs.html_url || steps.manual_release_info.outputs.html_url }}
 
             You can also update by visiting our docs at:
             https://docs.subspace.network/docs/protocol/cli

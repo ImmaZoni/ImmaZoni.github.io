@@ -42,10 +42,10 @@ jobs:
           latest: true
       - name: Log Send Variables
         run: |
-          echo "GITHUB_SHA: ${{ github.sha }}"
-          echo "WORKFLOW_SHA: ${{ github.event.workflow_run.head_sha }}"
+          echo "GITHUB_SHA: ${{ github.ref_name }}"
+          echo "WORKFLOW_SHA: ${{ steps.manual_release_info.outputs.tag_name }}"
       - name: Send Discord Message
-        if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run' && github.event.workflow_run.head_sha ==  github.sha}}
+        if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run' && github.ref_name ==  steps.manual_release_info.outputs.tag_name}}
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master

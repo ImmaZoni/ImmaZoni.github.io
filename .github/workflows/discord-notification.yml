@@ -45,7 +45,7 @@ jobs:
           echo "GITHUB_SHA: ${{ github.event.workflow_run.head_branch }}"
           echo "WORKFLOW_SHA: ${{ steps.release_info.outputs.tag_name }}"
       - name: Send Discord Message
-        if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run' && github.tag_name ==  steps.release_info.outputs.tag_name}}
+        if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run' && github.event.workflow_run.head_branch ==  steps.release_info.outputs.tag_name}}
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master

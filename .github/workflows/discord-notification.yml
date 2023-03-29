@@ -10,7 +10,7 @@ on:
       branch_name:
         description: 'Please run this workflow from the branch you updated'
         required: true
-        type: string
+        type: boolean
       notify_community:
         description: 'I understand that running this workflow will notify the community of my actions'
         required: true
@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Get release by Tag for manual run
         if: ${{ github.event_name == 'workflow_dispatch' }}
-        id: release_info
+        id: manual_release_info
         uses: cardinalby/git-get-release-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -44,12 +44,12 @@ jobs:
         uses: Ilshidur/action-discord@master
         with:
           args: |
-            ${{ steps.release_info.tag_name }} of ${{ github.repository }} has been released!
+            ${{ steps.release_info.tag_name || steps.manual_release_info .tag_name }} of ${{ github.repository }} has been released!
             **Release Description:**
             ```
-            ${{ steps.release_info.body }}
+            ${{ steps.release_info.body || steps.manual_release_info.body }}
             ```
-            Read more at: ${{ steps.release_info.html_url }}
+            Read more at: ${{ steps.release_info.html_url || steps.manual_release_info.html_url }}
 
             You can also update by visiting our docs at:
             https://docs.subspace.network/docs/protocol/cli

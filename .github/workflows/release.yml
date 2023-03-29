@@ -1,0 +1,13 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "*"
+      
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo
+        run: Echo "Release Ran!"

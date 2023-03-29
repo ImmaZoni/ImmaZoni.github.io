@@ -23,7 +23,7 @@ jobs:
       - name: Get release by Tag for manual run
         if: ${{ github.event_name == 'workflow_dispatch' }}
         id: release_info
-      - uses: cardinalby/git-get-release-action@v1
+        uses: cardinalby/git-get-release-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -32,7 +32,7 @@ jobs:
       - name: Get release by Tag for build and release
         if: ${{ github.event_name == 'workflow_run' }}
         id: release_info
-      - uses: cardinalby/git-get-release-action@v1
+        uses: cardinalby/git-get-release-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
